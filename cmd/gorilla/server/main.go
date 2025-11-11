@@ -14,10 +14,24 @@ type Reply struct {
 	Message string
 }
 
+type MathArgs struct {
+	A int `json:"a"`
+	B int `json:"b"`
+}
+
+type MathReply struct {
+	Result int `json:"result"`
+}
+
 type HelloService struct{}
 
 func (h *HelloService) SayHello(r *http.Request, args *Args, reply *Reply) error {
 	reply.Message = "hello world"
+	return nil
+}
+
+func (h *HelloService) AddNumbers(r *http.Request, args *MathArgs, reply *MathReply) error {
+	reply.Result = args.A + args.B
 	return nil
 }
 
