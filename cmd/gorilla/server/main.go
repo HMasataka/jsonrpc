@@ -1,0 +1,35 @@
+package main
+
+import (
+	"log"
+	"net/http"
+
+	"github.com/gorilla/rpc/v2"
+	"github.com/gorilla/rpc/v2/json2"
+)
+
+type Args struct{}
+
+type Reply struct {
+	Message string
+}
+
+type HelloService struct{}
+
+func (h *HelloService) SayHello(r *http.Request, args *Args, reply *Reply) error {
+	reply.Message = "hello world"
+	return nil
+}
+
+func main() {
+	server := rpc.NewServer()
+	server.RegisterCodec(json2.NewCodec(), "application/json")
+	server.RegisterService(new(HelloService), "")
+
+	http.Handle("/rpc", server)
+
+	log.Println("Starting gorilla JSON-RPC server on :8081")
+	if err := http.ListenAndServe(":8081", nil); err != nil {
+		log.Fatal(err)
+	}
+}
