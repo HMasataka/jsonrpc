@@ -17,7 +17,7 @@ type Reply struct {
 }
 
 func main() {
-	url := "http://localhost:8081/rpc"
+	url := "http://localhost:8081/"
 
 	args := &Args{}
 	jsonData, err := json2.EncodeClientRequest("HelloService.SayHello", args)

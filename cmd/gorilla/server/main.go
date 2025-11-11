@@ -24,12 +24,15 @@ func (h *HelloService) SayHello(r *http.Request, args *Args, reply *Reply) error
 func main() {
 	server := rpc.NewServer()
 	server.RegisterCodec(json2.NewCodec(), "application/json")
-	server.RegisterService(new(HelloService), "")
 
-	http.Handle("/rpc", server)
+	service := &HelloService{}
+	server.RegisterService(service, "")
+
+	mux := http.NewServeMux()
+	mux.Handle("/", server)
 
 	log.Println("Starting gorilla JSON-RPC server on :8081")
-	if err := http.ListenAndServe(":8081", nil); err != nil {
+	if err := http.ListenAndServe(":8081", mux); err != nil {
 		log.Fatal(err)
 	}
 }
