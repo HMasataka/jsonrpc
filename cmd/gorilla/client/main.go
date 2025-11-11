@@ -2,7 +2,6 @@ package main
 
 import (
 	"bytes"
-	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -11,6 +10,8 @@ import (
 	"github.com/gorilla/rpc/v2/json2"
 )
 
+type Args struct{}
+
 type Reply struct {
 	Message string
 }
@@ -18,16 +19,10 @@ type Reply struct {
 func main() {
 	url := "http://localhost:8081/rpc"
 
-	message := map[string]interface{}{
-		"jsonrpc": "2.0",
-		"method":  "HelloService.SayHello",
-		"params":  []interface{}{},
-		"id":      1,
-	}
-
-	jsonData, err := json.Marshal(message)
+	args := &Args{}
+	jsonData, err := json2.EncodeClientRequest("HelloService.SayHello", args)
 	if err != nil {
-		fmt.Fprintln(os.Stderr, "Failed to marshal request:", err)
+		fmt.Fprintln(os.Stderr, "Failed to encode request:", err)
 		return
 	}
 
