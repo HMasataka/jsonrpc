@@ -1,7 +1,7 @@
 version: "3"
 
 vars:
-  BINARY_NAME: jronrpc
+  BINARY_NAME: jsonrpc
   BUILD_DIR: ./bin
   MAIN_FILE: main.go
 

@@ -1,4 +1,4 @@
-# jronrpc
+# jsonrpc
 
 A Go project.
 
@@ -11,8 +11,8 @@ A Go project.
 ### Installation
 
 ```bash
-git clone jronrpc
-cd jronrpc
+git clone jsonrpc
+cd jsonrpc
 go mod tidy
 ```
 
@@ -25,8 +25,8 @@ go run main.go
 ### Build
 
 ```bash
-go build -o jronrpc
-./jronrpc
+go build -o jsonrpc
+./jsonrpc
 ```
 
 ## License

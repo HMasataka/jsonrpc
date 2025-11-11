@@ -1,4 +1,4 @@
-module github.com/HMasataka/jronrpc
+module github.com/HMasataka/jsonrpc
 
 go 1.25.1
 
